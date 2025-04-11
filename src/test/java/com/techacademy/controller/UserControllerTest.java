@@ -61,8 +61,11 @@ class UserControllerTest {
         assertEquals("キラメキ太郎", user.getName());
     }
 
+    @Test
+    @DisplayName("一覧画面")
+    @WithMockUser
     void testGetList() throws Exception {
-        MvcResult result = mockMvc.perform(get("user/list")).andExpect(status().isOk())
+        MvcResult result = mockMvc.perform(get("/user/list")).andExpect(status().isOk())
                 .andExpect(model().attributeExists("userlist")).andExpect(model().hasNoErrors())
                 .andExpect(view().name("user/list")).andReturn();
         List<User> userlist = (List<User>) result.getModelAndView().getModel().get("userlist");
